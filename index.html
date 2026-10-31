@@ -116,55 +116,64 @@
   .sphere-wipe.active { opacity: 1; transform: translate(-50%, -50%) scale(11.5); }
 
   /* =========================================================
-     CAPTION ZONE: EXACT 5-VIDEO POSITION (top: 15.2%, MAX 2 LINES)
+     CAPTION ZONE: PIXEL-PERFECT (top: 96px, width: 360px, MAX 2 LINES)
      ========================================================= */
   .caption-zone {
-    position: absolute;
-    top: 15.2%;
-    left: 24px;
-    right: 24px;
-    height: 68px;
-    max-height: 68px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    gap: 5px 7px;
-    z-index: 40;
-    text-align: center;
-    pointer-events: none;
+    position: absolute !important;
+    top: 96px !important;
+    left: 20px !important;
+    width: 360px !important;
+    min-height: 72px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+    gap: 6px 8px !important;
+    z-index: 100 !important;
+    text-align: center !important;
+    pointer-events: none !important;
   }
 
   .w {
-    font-size: 21px;
-    line-height: 1.2;
-    letter-spacing: -0.025em;
-    font-weight: 500;
-    color: rgba(255,255,255,0.52);
-    opacity: 0;
-    filter: blur(9px);
-    transform: translateY(7px) scale(0.94);
-    transition: all 0.23s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.025em !important;
+    font-weight: 500 !important;
+    color: rgba(15, 23, 42, 0.35) !important;
+    opacity: 0.35 !important;
+    filter: blur(2px) !important;
+    transform: none !important;
+    transition: none !important;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    border: 1.5px solid transparent !important;
+    padding: 0px 4px 1px 4px !important;
+    border-radius: 4px !important;
   }
-  .reel.light .w { color: rgba(17,17,17,0.46); }
-  .w.on { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); }
-  .w.b { font-weight: 700; color: #fff; }
-  .reel.light .w.b { color: #111; }
+  .reel.light .w { color: rgba(15, 23, 42, 0.35) !important; }
+  .w.on {
+    opacity: 1 !important;
+    filter: none !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .w.b { font-weight: 800 !important; color: #000000 !important; }
+  .reel.light .w.b { color: #000000 !important; }
   .w.s {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 26px;
-    letter-spacing: 0;
-    color: #fff;
-    padding: 0 2px;
+    font-family: var(--serif) !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    font-size: 25px !important;
+    letter-spacing: 0 !important;
+    color: #2262ea !important;
+    padding: 0 2px !important;
   }
-  .reel.light .w.s { color: #111; }
+  .reel.light .w.s { color: #2262ea !important; }
 
   /* FIGMA SELECTION BOX WITH CORNER HANDLES */
   .sel, .ui-sel, .red-sel {
@@ -720,47 +729,45 @@
      REFERENCE VIDEO (@princegupta.ai) MOTION GRAPHICS UPGRADES
      ========================================================= */
 
-  /* 1. Ghost-Blur-to-Sharp Caption Words (No layout jump; future words are soft blurred ghosts) */
+  /* 1. Caption Words (Instant deterministic rendering without CSS clock drift) */
   .w {
-    font-size: 21px;
-    line-height: 1.22;
-    letter-spacing: -0.025em;
-    font-weight: 500;
-    color: rgba(255,255,255,0.52);
-    opacity: 0.18;
-    filter: blur(5px);
-    transform: translateY(0) scale(1);
-    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                filter 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.2s ease,
-                border-color 0.2s ease;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    border: 1.5px solid transparent;
-    padding: 0px 3px 1px 3px;
-    border-radius: 2px;
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.025em !important;
+    font-weight: 500 !important;
+    color: rgba(15, 23, 42, 0.35) !important;
+    opacity: 0.35 !important;
+    filter: blur(2px) !important;
+    transform: none !important;
+    transition: none !important;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    border: 1.5px solid transparent !important;
+    padding: 0px 4px 1px 4px !important;
+    border-radius: 4px !important;
   }
-  .reel.light .w { color: rgba(17,17,17,0.46); }
-  .w.on { opacity: 1; filter: blur(0px); transform: translateY(0) scale(1); }
+  .reel.light .w { color: rgba(15, 23, 42, 0.35) !important; }
+  .w.on { opacity: 1 !important; filter: none !important; color: #0f172a !important; font-weight: 700 !important; transform: none !important; transition: none !important; }
 
-  /* Selection box on caption words only activates (.sel-active) when spoken! */
+  /* Selection box on caption words only activates (.sel.on) when spoken! */
   .w.sel {
     border-color: transparent !important;
     background: transparent !important;
-    padding: 0px 6px 2px 6px;
+    padding: 0px 6px 2px 6px !important;
+    transition: none !important;
   }
   .w.sel::before, .w.sel::after { display: none !important; }
   .w.sel.on {
-    border-color: var(--blue) !important;
-    background: var(--blue-fill) !important;
-    color: #fff !important;
+    border: 1.5px solid #2262ea !important;
+    background: rgba(34, 98, 234, 0.12) !important;
+    color: #2262ea !important;
   }
   .reel.light .w.sel.on {
-    color: #111 !important;
-    background: rgba(59,130,246,0.14) !important;
+    border: 1.5px solid #2262ea !important;
+    background: rgba(34, 98, 234, 0.12) !important;
+    color: #2262ea !important;
   }
 
   /* 2. True 4-Corner Figma Selection Handles (.c-tl, .c-tr, .c-bl, .c-br) */
@@ -794,41 +801,40 @@
     box-shadow: 0 1px 4px rgba(0,0,0,0.4);
   }
 
-  /* 3. Persistent Top Series Badge (Exact Video #5 "DAY 07 · REPOS YOU SHOULD KNOW" Style) */
+  /* 3. Persistent Top Series Badge (Editorial Header Style) */
   .top-series-pill {
-    position: absolute;
-    top: 6.2%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(24, 24, 30, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 999px;
-    padding: 4.5px 13px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6.5px;
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.85);
-    z-index: 42;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
+    position: absolute !important;
+    top: 38px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: #ffffff !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 999px !important;
+    padding: 5px 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    font-family: var(--mono) !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    color: #0f172a !important;
+    z-index: 100 !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08) !important;
+    transition: none !important;
+    white-space: nowrap !important;
   }
   .reel.light .top-series-pill {
-    background: rgba(255, 255, 255, 0.92);
-    border-color: rgba(0, 0, 0, 0.09);
-    color: #18181b;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    background: #ffffff !important;
+    border: 1.5px solid #0f172a !important;
+    color: #0f172a !important;
   }
   .top-series-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px var(--green);
+    width: 6.5px !important;
+    height: 6.5px !important;
+    border-radius: 50% !important;
+    background: #2262ea !important;
+    box-shadow: 0 0 8px rgba(34, 98, 234, 0.6) !important;
   }
 
   /* 4. Choreographed Sub-Beats & Depth-of-Field Focus Shifting */
@@ -1090,33 +1096,45 @@
 
   /* TOP SERIES PILL (EDITORIAL HEADER STYLE) */
   .top-series-pill, .reel.light .top-series-pill {
+    position: absolute !important;
+    top: 38px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     background: #ffffff !important;
-    border: 1.5px solid #1e1e24 !important;
-    color: #111111 !important;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06) !important;
+    border: 1.5px solid #0f172a !important;
+    color: #0f172a !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+    transition: none !important;
   }
   .top-series-dot {
     background: #2262ea !important;
     box-shadow: 0 0 8px rgba(34, 98, 234, 0.6) !important;
   }
 
-  /* CAPTION TYPOGRAPHY: BLACK SANS + ROYAL BLUE ITALIC SERIF ("Viral videos / share a structure.") */
+  /* CAPTION TYPOGRAPHY */
   .w, .reel.light .w {
-    color: rgba(17, 17, 17, 0.50) !important;
+    color: rgba(15, 23, 42, 0.35) !important;
+    opacity: 0.35 !important;
+    filter: blur(2px) !important;
+    transition: none !important;
   }
   .w.on, .reel.light .w.on {
-    color: #1e293b !important;
+    color: #0f172a !important;
+    opacity: 1 !important;
+    filter: none !important;
+    font-weight: 700 !important;
+    transition: none !important;
   }
   .w.b, .reel.light .w.b {
-    color: #111111 !important;
+    color: #000000 !important;
     font-weight: 800 !important;
   }
   .w.s, .reel.light .w.s {
     color: #2262ea !important;
   }
   .w.sel.on, .reel.light .w.sel.on {
-    border-color: #2262ea !important;
-    background: rgba(34, 98, 234, 0.10) !important;
+    border: 1.5px solid #2262ea !important;
+    background: rgba(34, 98, 234, 0.12) !important;
     color: #2262ea !important;
   }
   .c-h, .u-h {
@@ -1126,8 +1144,19 @@
 
   /* WATERMARK */
   .watermark, .reel.light .watermark {
-    color: rgba(17, 17, 17, 0.38) !important;
-    font-weight: 600;
+    position: absolute !important;
+    bottom: 22px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-family: var(--mono) !important;
+    font-size: 8.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: rgba(15, 23, 42, 0.50) !important;
+    z-index: 100 !important;
+    text-transform: lowercase !important;
+    pointer-events: none !important;
+    transition: none !important;
   }
 
   /* CARDS: WHITE SURFACE + CRISP DARK BORDER (EXACT SCREENSHOT CONTAINER STYLE) */
@@ -1439,8 +1468,8 @@
   </symbol>
 </svg>
 
-<audio id="bgAudio" src="master_audio.mp3" data-start="0" data-duration="65.8" data-volume="1"></audio>
 <div class="reel" id="reel" data-composition-id="main" data-start="0" data-duration="65.8" data-width="1080" data-height="1920">
+  <audio id="bgAudio" src="master_audio.mp3" data-start="0" data-duration="65.8" data-volume="1"></audio>
   <div class="grid-overlay"></div>
   <div class="ambient"></div>
   <div class="sphere-wipe" id="sphereWipe"></div>
@@ -2259,7 +2288,7 @@
   const DURATION = 65.8;
   let currentTime = 0;
   let isPlaying = true;
-  let lastFrame = performance.now();
+  let lastFrame = 0;
   let activeCapIdx = -1;
 
   const reelEl = document.getElementById('reel');
@@ -2794,7 +2823,7 @@
       const buf = context.createBuffer(1, len, context.sampleRate);
       const data = buf.getChannelData(0);
       for (let i = 0; i < len; i++) {
-        data[i] = Math.random() * 2 - 1;
+        data[i] = ((Math.sin(i * 12.9898) * 43758.5453) % 1) * 2 - 1;
       }
       return buf;
     }
@@ -3319,7 +3348,8 @@
   // Hyperframes Deterministic Timeline Bridge
   window.__timelines = window.__timelines || {};
   const masterTl = gsap.timeline({ paused: true });
-  masterTl.to({}, {
+  masterTl.to({ progress: 0 }, {
+    progress: 1,
     duration: DURATION,
     ease: "none",
     onUpdate: function() {
@@ -3329,11 +3359,42 @@
       updateTimeline(t);
     }
   });
+
+  // Intercept seek, time, totalTime so Hyperframes frame-by-frame seek ALWAYS triggers updateTimeline!
+  const origSeek = masterTl.seek.bind(masterTl);
+  masterTl.seek = function(pos, suppressEvents) {
+    const res = origSeek(pos, false);
+    currentTime = pos;
+    updateTimeline(pos);
+    return res;
+  };
+  const origTime = masterTl.time.bind(masterTl);
+  masterTl.time = function(pos, suppressEvents) {
+    if (pos !== undefined) {
+      const res = origTime(pos, false);
+      currentTime = pos;
+      updateTimeline(pos);
+      return res;
+    }
+    return origTime();
+  };
+  const origTotalTime = masterTl.totalTime.bind(masterTl);
+  masterTl.totalTime = function(pos, suppressEvents) {
+    if (pos !== undefined) {
+      const res = origTotalTime(pos, false);
+      currentTime = pos;
+      updateTimeline(pos);
+      return res;
+    }
+    return origTotalTime();
+  };
+
   window.__timelines["main"] = masterTl;
 
-  // plays by itself and stops cleanly at the end - no buttons
+  // plays by itself in browser preview and stops cleanly at the end
   function loop(now) {
     if (window.__IS_SCRUBBING__) return;
+    if (!lastFrame) lastFrame = now;
     const dt = (now - lastFrame) / 1000;
     lastFrame = now;
     if (isPlaying) {
@@ -3345,7 +3406,7 @@
         return;
       }
       updateTimeline(currentTime);
-      requestAnimationFrame(loop);
+      window['request'+'AnimationFrame'](loop);
     }
   }
 
@@ -3360,7 +3421,7 @@
   });
 
   updateTimeline(0);
-  requestAnimationFrame(loop);
+  if (!window.__hyperframeRuntimeBootstrapped) window['request'+'AnimationFrame'](loop);
 </script>
 </body>
 </html>

@@ -1,0 +1,75 @@
+name: Render Claude Code Reel (HeyGen Hyperframes)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Linux System Dependencies & FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libasound2 fonts-inter
+
+      - name: Install Hyperframes & Dependencies
+        run: |
+          npm install -g hyperframes
+          npm install puppeteer-core
+
+      - name: Render Video with HeyGen Hyperframes
+        run: |
+          echo "=== Starting HeyGen Hyperframes Render ==="
+          hyperframes --version || npx hyperframes --version
+          
+          # Attempt Hyperframes Render
+          npx hyperframes render --fps 30 -o Claude_Code_Master_Reel.mp4 || true
+
+          # If hyperframes placed output in renders/ directory:
+          if [ ! -f Claude_Code_Master_Reel.mp4 ] && [ -d renders ]; then
+            LATEST_RENDER=$(ls -t renders/*.mp4 2>/dev/null | head -n 1)
+            if [ -n "$LATEST_RENDER" ]; then
+              cp "$LATEST_RENDER" Claude_Code_Master_Reel.mp4
+            fi
+          fi
+
+          # Deterministic CDP Fallback if needed
+          if [ ! -f Claude_Code_Master_Reel.mp4 ] && [ -f render_cdp.js ]; then
+            echo "Running deterministic CDP rendering engine..."
+            node render_cdp.js
+          fi
+
+          # Verify Audio Track
+          if [ -f Claude_Code_Master_Reel.mp4 ]; then
+            HAS_AUDIO=$(ffprobe -i Claude_Code_Master_Reel.mp4 -show_streams -select_streams a -loglevel error)
+            if [ -z "$HAS_AUDIO" ] && [ -f master_audio.mp3 ]; then
+              echo "Muxing master_audio.mp3 into final video..."
+              ffmpeg -y -i Claude_Code_Master_Reel.mp4 -i master_audio.mp3 -c:v copy -c:a aac -b:a 192k -shortest output_muxed.mp4
+              mv output_muxed.mp4 Claude_Code_Master_Reel.mp4
+            fi
+            echo "=== Final Video Details ==="
+            ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate -of default=noprint_wrappers=1 Claude_Code_Master_Reel.mp4
+            ls -lh Claude_Code_Master_Reel.mp4
+          else
+            echo "Error: Video could not be produced."
+            exit 1
+          fi
+
+      - name: Upload Final MP4 Video Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Claude_Code_Master_Reel
+          path: Claude_Code_Master_Reel.mp4
+          if-no-files-found: error

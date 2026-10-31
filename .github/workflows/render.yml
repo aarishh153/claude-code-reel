@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Linux System Dependencies & FFmpeg
+      - name: Verify Pre-installed FFmpeg & Chrome
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libasound2 fonts-inter
+          ffmpeg -version | head -n 2
+          which google-chrome || true
 
       - name: Install Hyperframes & Dependencies
         run: |

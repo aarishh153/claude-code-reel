@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <style>
   :root {
+    --fit: 2.7 !important;
     --bg-dark: #09090b;
     --bg-light: #f5f4f0;
     --card-dark: #121216;
@@ -51,7 +52,7 @@
     top: 50%;
     width: 400px;
     height: 711.111px; /* exact 9:16 */
-    transform: translate(-50%, -50%) scale(var(--fit, 1));
+    transform: translate(-50%, -50%) scale(var(--fit, 2.7));
     transform-origin: center center;
     background: var(--bg-dark);
     overflow: hidden;
@@ -1468,7 +1469,7 @@
   </symbol>
 </svg>
 
-<div class="reel" id="reel" data-composition-id="main" data-start="0" data-duration="65.8" data-width="1080" data-height="1920">
+<div class="reel" id="reel" style="--fit: 2.7;" data-composition-id="main" data-start="0" data-duration="65.8" data-width="1080" data-height="1920">
   <audio id="bgAudio" src="master_audio.mp3" data-start="0" data-duration="65.8" data-volume="1"></audio>
   <div class="grid-overlay"></div>
   <div class="ambient"></div>

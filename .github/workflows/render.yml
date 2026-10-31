@@ -44,12 +44,14 @@ jobs:
           if-no-files-found: ignore
 
       - name: Render Video with HeyGen Hyperframes
+        env:
+          PRODUCER_FORCE_SCREENSHOT: "true"
         run: |
           echo "=== Starting HeyGen Hyperframes Render ==="
           hyperframes --version || npx hyperframes --version
           
-          # Attempt Hyperframes Render
-          npx hyperframes render --fps 30 -o Claude_Code_Master_Reel.mp4 || true
+          # Attempt Hyperframes Render with PRODUCER_FORCE_SCREENSHOT enabled
+          PRODUCER_FORCE_SCREENSHOT=true npx hyperframes render --fps 30 --no-browser-gpu -o Claude_Code_Master_Reel.mp4 || true
 
           # If hyperframes placed output in renders/ directory:
           if [ ! -f Claude_Code_Master_Reel.mp4 ] && [ -d renders ]; then
@@ -76,10 +78,21 @@ jobs:
             echo "=== Final Video Details ==="
             ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate -of default=noprint_wrappers=1 Claude_Code_Master_Reel.mp4
             ls -lh Claude_Code_Master_Reel.mp4
+
+            # Extract verification frame from final video
+            ffmpeg -y -ss 00:00:01.0 -i Claude_Code_Master_Reel.mp4 -vframes 1 final_video_frame_1s.png
           else
             echo "Error: Video could not be produced."
             exit 1
           fi
+
+      - name: Upload Frame 1s Verification Image
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final_video_frame_1s
+          path: final_video_frame_1s.png
+          if-no-files-found: ignore
 
       - name: Upload Final MP4 Video Artifact
         uses: actions/upload-artifact@v4

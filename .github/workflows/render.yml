@@ -43,29 +43,10 @@ jobs:
           path: diagnose_screenshot_1s.png
           if-no-files-found: ignore
 
-      - name: Render Video with HeyGen Hyperframes
-        env:
-          PRODUCER_FORCE_SCREENSHOT: "true"
+      - name: Render Video Studio Master (Deterministic CDP Engine)
         run: |
-          echo "=== Starting HeyGen Hyperframes Render ==="
-          hyperframes --version || npx hyperframes --version
-          
-          # Attempt Hyperframes Render with PRODUCER_FORCE_SCREENSHOT enabled
-          PRODUCER_FORCE_SCREENSHOT=true npx hyperframes render --fps 30 --no-browser-gpu -o Claude_Code_Master_Reel.mp4 || true
-
-          # If hyperframes placed output in renders/ directory:
-          if [ ! -f Claude_Code_Master_Reel.mp4 ] && [ -d renders ]; then
-            LATEST_RENDER=$(ls -t renders/*.mp4 2>/dev/null | head -n 1)
-            if [ -n "$LATEST_RENDER" ]; then
-              cp "$LATEST_RENDER" Claude_Code_Master_Reel.mp4
-            fi
-          fi
-
-          # Deterministic CDP Fallback if needed
-          if [ ! -f Claude_Code_Master_Reel.mp4 ] && [ -f render_cdp.js ]; then
-            echo "Running deterministic CDP rendering engine..."
-            node render_cdp.js
-          fi
+          echo "=== Starting High-Fidelity CDP Deterministic Render ==="
+          node render_cdp.js
 
           # Verify Audio Track
           if [ -f Claude_Code_Master_Reel.mp4 ]; then
@@ -78,9 +59,6 @@ jobs:
             echo "=== Final Video Details ==="
             ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate -of default=noprint_wrappers=1 Claude_Code_Master_Reel.mp4
             ls -lh Claude_Code_Master_Reel.mp4
-
-            # Extract verification frame from final video
-            ffmpeg -y -ss 00:00:01.0 -i Claude_Code_Master_Reel.mp4 -vframes 1 final_video_frame_1s.png
           else
             echo "Error: Video could not be produced."
             exit 1
